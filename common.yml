@@ -1,0 +1,10 @@
+---
+- hosts: docklet_master
+  roles:
+    - common
+    - nfs-master
+
+- hosts: docklet_worker
+  roles:
+    - common
+    - nfs-client

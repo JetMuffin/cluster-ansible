@@ -1,0 +1,4 @@
+---
+nfsmount: /data
+nfsserver: 114.212.189.138
+nfspath: /data

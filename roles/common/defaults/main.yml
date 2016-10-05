@@ -1,0 +1,9 @@
+---
+apt_proxy: http://114.212.189.147:8118
+
+ntp_servers:
+  - ntp.ubuntu.com
+
+nfsmount: /data
+nfsserver: 114.212.189.138
+nfspath: /data

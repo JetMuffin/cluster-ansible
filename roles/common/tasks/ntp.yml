@@ -1,0 +1,13 @@
+---
+- name: Install NTP packages.
+  apt: name=ntp state=installed
+
+- name: Ensure NTP is running and enabled as configured.
+  service:
+    name: ntp
+    state: started
+    enabled: yes
+
+- name: Generate ntp.conf file
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  notify: restart ntp

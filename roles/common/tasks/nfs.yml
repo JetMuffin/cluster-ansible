@@ -1,0 +1,17 @@
+---
+- name: Ensure NFS utilities are installed
+  apt: name={{ item }} state=installed
+  with_items:
+    - nfs-common
+  tags:
+    - nfs
+
+- name: Ensure {{ nfsmount }} directory exists
+  action: file path={{ nfsmount }} state=directory
+  tags:
+    - nfs
+
+- name: Mount nfs volume on workers
+  action: mount name={{ nfsmount }} src={{ nfsserver }}:{{ nfspath }} fstype=nfs state=mounted
+  tags:
+    - nfs
