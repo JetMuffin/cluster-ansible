@@ -1,0 +1,7 @@
+---
+- hosts:
+    - docklet_master
+    - docklet_worker
+  roles:
+      - etcd
+

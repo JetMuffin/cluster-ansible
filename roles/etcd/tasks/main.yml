@@ -1,0 +1,15 @@
+---
+- name: Copy binaries from archive into etcd dir
+  synchronize: "src={{ etcd_download_dir }}/{{ item }} dest={{ etcd_dir }} archive=True"
+  with_items:
+      - etcd
+      - etcdctl
+
+- name: Add etcd systemd service
+  template: src=systemd/etcd.service.j2 dest=/lib/systemd/system/etcd.service mode=0644
+  notify:
+      - reload systemd
+      - restart etcd
+
+- name: Ensure etcd service running
+  service: name=etcd state=started

@@ -1,8 +1,11 @@
 ---
+etcd_release: 3.0.10
+
 # Runtime Variables
+etcd_download_dir: "/data/apps/etcd-{{ etcd_release }}"
 etcd_dir: /usr/local/sbin
 etcd_data_dir: /var/cache/etcd/state
-etcd_cmd: "{{ etcd_dir }}"/etcd
+etcd_cmd: "{{ etcd_dir }}/etcd"
 etcd_user: root
 
 # Networking Variables
