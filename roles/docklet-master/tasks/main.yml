@@ -1,0 +1,62 @@
+---
+- name: Install cgourp, lxc, lvm, ovs dependency packages
+  apt: name={{ item }} state=installed
+  with_items:
+      - cgmanager
+      - lxc
+      - lxcfs
+      - lxc-templates
+      - lvm2
+      - bridge-utils
+      - curl
+      - exim4
+      - openssh-server
+      - openvswitch-switch
+
+- name: Install python dependency packages
+  apt: name={{ item }} state=installed
+  with_items:
+      - python3
+      - python3-netifaces
+      - python3-flask
+      - python3-flask-sqlalchemy
+      - python3-pampy
+      - python3-lxc
+      - python3-requests
+      - python3-suds
+
+- name: Install nodejs dependency packages
+  apt: name={{ item }} state=installed
+  with_items:
+      - nodejs
+      - nodejs-legacy
+      - npm
+
+- name: Set npm registry to {{ npm_registry }}
+  command: npm config set registry {{ npm_registry }}
+
+- name: Set npm proxy to {{ http_proxy }}
+  command: npm config set proxy {{ http_proxy }} && npm config set https_proxy {{ http_proxy }}
+
+- name: Ensure configurable-http-proxy installed.
+  command: which configurable-http-proxy
+  register: http_proxy_component_installed
+  ignore_errors: True
+
+- name: Install configurable-http_proxy.
+  command: npm install -g configurable-http-proxy
+  when: http_proxy_component_installed|failed
+
+- name: Download docklet release {{ docklet_release }}
+  synchronize:
+      src: "/data/apps/docklet-{{ docklet_release }}"
+      dest: "{{ docklet_dir }}"
+      delete: yes
+
+- name: Generate configuration file
+  template:
+    src: docklet.conf.j2
+    dest: "{{ docklet_work_dir }}/conf/docklet.conf"
+
+- name: Init docklet master, web
+  command: "{{ docklet_work_dir }}/bin/docklet-master init"

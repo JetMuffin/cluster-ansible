@@ -1,0 +1,4 @@
+---
+- hosts: docklet_worker
+  roles:
+      - docklet-worker

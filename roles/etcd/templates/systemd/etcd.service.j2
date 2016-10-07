@@ -22,6 +22,7 @@ ExecStart={{ etcd_cmd }} --name {{ inventory_hostname }} \
                --initial-cluster={{ initial_cluster() }} \
                --initial-cluster-token {{ etcd_initial_cluster_token }} \
                --initial-cluster-state {{ etcd_initial_cluster_state }}
+
 Restart=always
 RestartSec=10s
 LimitNOFILE=40000

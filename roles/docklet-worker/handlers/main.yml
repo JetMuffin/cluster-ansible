@@ -1,0 +1,3 @@
+---
+- name: restart docklet worker
+  command: "{{ docklet_work_dir }}/bin/docklet-worker restart"
