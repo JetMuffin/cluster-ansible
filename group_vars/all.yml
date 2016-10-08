@@ -1,1 +1,14 @@
 ansible_ssh_user: root
+
+http_proxy: http://114.212.189.147:8118
+https_proxy: "{{ http_proxy }}"
+npm_registry: https://registry.npm.taobao.org
+
+etcd_release: 3.0.10
+
+docklet_release: 0.2.8
+docklet_dir: /opt/docklet
+docklet_work_dir: "{{ docklet_dir }}/docklet-{{ docklet_release }}"
+docklet_fs_prefix: /opt/docklet
+
+zookeeper_version: 3.4.6
