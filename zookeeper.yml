@@ -1,0 +1,14 @@
+---
+- name: Zookeeper cluster setup
+  hosts:
+    - docklet_master
+    - docklet_worker
+  sudo: yes
+  roles:
+    - role: zookeeper
+      zookeeper_hosts: "
+        {%- set ips = [] %}
+        {%- for host in groups['docklet_worker'] %}
+        {{- ips.append(dict(id=loop.index, host=host, ip=hostvars[host]['ansible_default_ipv4'].address)) }}
+        {%- endfor %}
+        {{- ips -}}"

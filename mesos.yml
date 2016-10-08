@@ -1,0 +1,14 @@
+---
+- name: Install Mesos on docklet-master
+  hosts: docklet_master
+  sudo: yes
+  roles:
+    - role: mesos
+      mesos_install_mode: master
+
+- name: Install Mesos on docklet-worker
+  hosts: docklet_worker
+  sudo: yes
+  roles:
+    - role: mesos
+      mesos_install_mode: slave
