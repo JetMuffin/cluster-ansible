@@ -11,5 +11,15 @@
       - reload systemd
       - restart etcd
 
+- name: Delete etcd data directory
+  file:
+    path: "{{ etcd_data_dir }}"
+    state: absent
+
+- name: Create etcd data directory
+  file:
+    path: "{{ etcd_data_dir }}"
+    state: directory
+
 - name: Ensure etcd service running
   service: name=etcd state=started
