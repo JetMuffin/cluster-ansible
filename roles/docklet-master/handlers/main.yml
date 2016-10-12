@@ -1,3 +1,0 @@
----
-- name: restart docklet-master
-  command: "{{ docklet_work_dir }}/bin/docklet-master restart"

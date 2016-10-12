@@ -1,0 +1,13 @@
+- name: Download docklet basic image to "{{ docklet_fs_prefix }}/local"
+  synchronize:
+    src: "/data/images/basefs"
+    dest: "{{ docklet_fs_prefix }}/local"
+
+- name: Generate configuration file
+  template:
+    src: docklet.conf.j2
+    dest: "{{ docklet_work_dir }}/conf/docklet.conf"
+  notify: restart docklet worker
+
+- name: Start docklet worker
+  command: "{{ docklet_work_dir }}/bin/docklet-worker start"

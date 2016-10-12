@@ -1,0 +1,6 @@
+---
+- include: install.yml
+  when: deploy_mode == "install"
+
+- include: update.yml
+  when: deploy_mode == "update"

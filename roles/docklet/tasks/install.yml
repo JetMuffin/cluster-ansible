@@ -1,0 +1,8 @@
+---
+- include: common.yml
+
+- include: master.yml
+  when: node_mode == "master"
+
+- include: worker.yml
+  when: node_mode == "worker"

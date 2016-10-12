@@ -24,6 +24,7 @@
       - python3-lxc
       - python3-requests
       - python3-suds
+      - python3-psutil
 
 - name: Install nodejs dependency packages
   apt: name={{ item }} state=installed
@@ -49,14 +50,6 @@
 
 - name: Download docklet release {{ docklet_release }}
   synchronize:
-      src: "/data/apps/docklet-{{ docklet_release }}"
-      dest: "{{ docklet_dir }}"
-      delete: yes
-
-- name: Generate configuration file
-  template:
-    src: docklet.conf.j2
-    dest: "{{ docklet_work_dir }}/conf/docklet.conf"
-
-- name: Init docklet master, web
-  command: "{{ docklet_work_dir }}/bin/docklet-master init"
+    src: "/data/apps/docklet-{{ docklet_release }}"
+    dest: "{{ docklet_dir }}"
+    delete: yes

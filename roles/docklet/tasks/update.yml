@@ -1,0 +1,20 @@
+---
+- name: Download docklet release {{ docklet_release }}
+  synchronize:
+    src: "/data/apps/docklet-{{ docklet_release }}"
+    dest: "{{ docklet_dir }}"
+    delete: yes
+
+- name: Generate configuration file after update release
+  template:
+    src: docklet.conf.j2
+    dest: "{{ docklet_work_dir }}/conf/docklet.conf"
+
+- name: Restart worker after update release
+  command: "{{ docklet_work_dir }}/bin/docklet-worker restart"
+  when: node_mode == "worker"
+
+- name: Restart master after update release
+  command: "{{ docklet_work_dir }}/bin/docklet-master restart"
+  when: node_mode == "master"
+
